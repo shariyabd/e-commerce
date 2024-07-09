@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/cart', [HomeController::class, 'cart'])->name('home.cart');
+Route::get('/checkout', [HomeController::class, 'checkout'])->name('home.checkout');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+
+
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'dashboard']);
 });
